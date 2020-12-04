@@ -5,6 +5,8 @@ services:
   app:
     build:
       context: .
+    environment:
+      REDIS_HOST: "redis"
     ports:
       - 8100:8000
     depends_on:

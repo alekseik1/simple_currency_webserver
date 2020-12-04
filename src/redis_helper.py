@@ -1,3 +1,4 @@
+import os
 from aioredis import Redis, create_redis_pool
 from typing import List, Tuple
 
@@ -6,7 +7,7 @@ from models import CurrencyRecord
 
 
 async def get_redis() -> Redis:
-    pool = await create_redis_pool(f'redis://localhost')
+    pool = await create_redis_pool(f'redis://{os.environ.get("REDIS_HOST", "localhost")}')
     try:
         yield pool
     finally:
