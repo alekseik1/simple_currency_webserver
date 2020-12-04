@@ -6,7 +6,7 @@ docker-compose up
 ```
 
 #### Fill with data
-`POST /database?merge=1` with body:
+`POST http://localhost:8100/database?merge=1` with body:
 ```json
 {
     "new_data": [
@@ -25,7 +25,7 @@ docker-compose up
 ```
 
 #### Check availability
-`GET /convert?from=AMD&to=RUR&amount=42`
+`GET http://localhost:8100/convert?from=AMD&to=RUR&amount=42`
 ```json
 {
     "from": "AMD",
