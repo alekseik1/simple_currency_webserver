@@ -26,7 +26,9 @@ async def convert_currency(source: str, dest: str, amount: int, redis: Redis) ->
     return amount * curr
 
 
-async def bulk_update(new_data: List[CurrencyRecord], redis: Redis):
+async def bulk_update(new_data: List[CurrencyRecord], invalidate_others: bool, redis: Redis):
+    if invalidate_others:
+        await redis.flushdb()
     tr = redis.multi_exec()
     for one_line in new_data:
         tr.set(str((one_line.source, one_line.dest)), one_line.price)

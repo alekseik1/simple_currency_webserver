@@ -23,7 +23,7 @@ async def convert(to: str, amount: int, from_: str = Query(..., alias='from'),
 @api.post('/database')
 async def update_db(merge: Literal['0', '1'], new_data: UpdateDataModel,
                     redis: Redis = Depends(get_redis)) -> str:
-    await bulk_update(new_data.new_data, redis=redis)
+    await bulk_update(new_data.new_data, redis=redis, invalidate_others=not bool(int(merge)))
     return 'ok'
 
 
